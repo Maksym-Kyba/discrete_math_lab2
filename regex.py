@@ -31,7 +31,6 @@ class StartState(State):
     def check_self(self, char):
         return super().check_self(char)
 
-# Implement
 class TerminationState(State):
     next_states: list[State] = []
 
@@ -41,7 +40,6 @@ class TerminationState(State):
     def check_self(self, char: str) -> bool:
         return False
 
-# Implement
 class DotState(State):
     """
     state for . character (any character accepted)
@@ -55,35 +53,29 @@ class DotState(State):
     def check_self(self, char: str) -> bool:
         return len(char) == 1
 
-
 class AsciiState(State):
     """
     state for alphabet letters or numbers
     """
-
     next_states: list[State] = []
     curr_sym = ""
 
     def __init__(self, symbol: str) -> None:
-        pass  # Implement
+        self.next_states = []
+        self.curr_sym = symbol
 
-    def check_self(self, curr_char: str) -> State | Exception:
-        pass  # Implement
-
+    def check_self(self, curr_char: str) -> bool:
+        return curr_char == self.curr_sym
 
 class StarState(State):
-
     next_states: list[State] = []
 
     def __init__(self, checking_state: State):
-        pass  # Implement
+        self.next_states = []
+        self._inner = checking_state
 
-    def check_self(self, char):
-        for state in self.next_states:
-            if state.check_self(char):
-                return True
-
-        return False
+    def check_self(self, char: str) -> bool:
+        return self._inner.check_self(char)
 
 
 class PlusState(State):
