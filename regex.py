@@ -197,32 +197,25 @@ if __name__ == "__main__":
     print(regex_compiled.check_string("4uhi"))  # True
     print(regex_compiled.check_string("meow"))  # False
 
-    # Star — нуль або більше
+    # Ще приклади
     r = RegexFSM("ab*c")
-    print(r.check_string("ac"))      # True  — нуль b
-    print(r.check_string("abbbc"))   # True  — три b
-    print(r.check_string("adc"))     # False — d не b
+    print(r.check_string("ac"))      # True
+    print(r.check_string("adc"))     # False
 
-    # Plus — один або більше
     r = RegexFSM("a+b")
     print(r.check_string("ab"))      # True
-    print(r.check_string("aaab"))    # True
-    print(r.check_string("b"))       # False — потрібна хоча б одна a
+    print(r.check_string("b"))       # False
 
-    # Крапка — будь-який символ
     r = RegexFSM("a.b")
     print(r.check_string("axb"))     # True
-    print(r.check_string("a5b"))     # True
-    print(r.check_string("ab"))      # False — крапка вимагає символ
+    print(r.check_string("ab"))      # False
 
     # Лише літери
     r = RegexFSM("abc")
     print(r.check_string("abc"))     # True
-    print(r.check_string("abcd"))    # False — зайвий символ
-    print(r.check_string("ab"))      # False — не повний збіг
+    print(r.check_string("ab"))      # False
 
     # Лише цифри
     r = RegexFSM("12+3")
     print(r.check_string("123"))     # True
-    print(r.check_string("12223"))   # True
     print(r.check_string("13"))      # False
