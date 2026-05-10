@@ -6,7 +6,7 @@ class State(ABC):
 
     @abstractmethod
     def __init__(self) -> None:
-        pass
+        self.next_states: list[State] = []
 
     @abstractmethod
     def check_self(self, char: str) -> bool:
@@ -23,8 +23,6 @@ class State(ABC):
 
 
 class StartState(State):
-    next_states: list[State] = []
-
     def __init__(self):
         super().__init__()
 
@@ -32,8 +30,6 @@ class StartState(State):
         return super().check_self(char)
 
 class TerminationState(State):
-    next_states: list[State] = []
-
     def __init__(self):
         self.next_states = []
 
@@ -44,9 +40,6 @@ class DotState(State):
     """
     state for . character (any character accepted)
     """
-
-    next_states: list[State] = []
-
     def __init__(self):
         super().__init__()
 
@@ -57,7 +50,6 @@ class AsciiState(State):
     """
     state for alphabet letters or numbers
     """
-    next_states: list[State] = []
     curr_sym = ""
 
     def __init__(self, symbol: str) -> None:
@@ -68,8 +60,6 @@ class AsciiState(State):
         return curr_char == self.curr_sym
 
 class StarState(State):
-    next_states: list[State] = []
-
     def __init__(self, checking_state: State):
         self.next_states = []
         self._inner = checking_state
@@ -79,8 +69,6 @@ class StarState(State):
 
 
 class PlusState(State):
-    next_states: list[State] = []
-
     def __init__(self, checking_state: State):
         self.next_states = []
         self._inner = checking_state
